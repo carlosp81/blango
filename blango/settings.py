@@ -18,24 +18,24 @@ import dj_database_url
 
 class Dev(Configuration):
 	# Build paths inside the project like this: BASE_DIR / 'subdir'.
-	BASE_DIR = Path(__file__).resolve().parent.parent
+    BASE_DIR = Path(__file__).resolve().parent.parent
 
-
+  
 	# Quick-start development settings - unsuitable for production
 	# See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 	# SECURITY WARNING: keep the secret key used in production secret!
-	SECRET_KEY = 'django-insecure-+sn%dpa!086+g+%44z9*^j^q-u4n!j(#wl)x9a%_1op@zz2+1-'
+    SECRET_KEY = 'django-insecure-+sn%dpa!086+g+%44z9*^j^q-u4n!j(#wl)x9a%_1op@zz2+1-'
 
 	# SECURITY WARNING: don't run with debug turned on in production!
-	DEBUG = values.BooleanValue(True)
+    DEBUG = values.BooleanValue(True)
 
-	ALLOWED_HOSTS = values.ListValue(["localhost", "0.0.0.0", ".codio.io"])
+    ALLOWED_HOSTS = values.ListValue(["localhost", "0.0.0.0", ".codio.io"])
 
 
 	# Application definition
 
-	INSTALLED_APPS = [
+    INSTALLED_APPS = [
 	    'django.contrib.admin',
 	    'django.contrib.auth',
 	    'django.contrib.contenttypes',
@@ -47,7 +47,7 @@ class Dev(Configuration):
 	    'crispy_bootstrap5',
 	]
 
-	MIDDLEWARE = [
+    MIDDLEWARE = [
 	    'django.middleware.security.SecurityMiddleware',
 	    'django.contrib.sessions.middleware.SessionMiddleware',
 	    'django.middleware.common.CommonMiddleware',
@@ -57,9 +57,9 @@ class Dev(Configuration):
 	    # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
 	]
 
-	ROOT_URLCONF = 'blango.urls'
+    ROOT_URLCONF = 'blango.urls'
 
-	TEMPLATES = [
+    TEMPLATES = [
 	    {
 	        'BACKEND': 'django.template.backends.django.DjangoTemplates',
 	        'DIRS': [BASE_DIR / 'templates'],
@@ -75,64 +75,60 @@ class Dev(Configuration):
 	    },
 	]
 
-	WSGI_APPLICATION = 'blango.wsgi.application'
+    WSGI_APPLICATION = 'blango.wsgi.application'
 
 
-	# Database
-	# https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-  
-  # DATABASES = {
-  #   "default": values.DatabaseURLValue(f"sqlite:///{BASE_DIR}/db.sqlite3"),
-  #   "alternative": dj_database_url.config("ALTERNATIVE_DATABASE_URL", default=f"sqlite:///{BASE_DIR}/alternative_db.sqlite3",),
-  # }
+    # DATABASES = {"Default" : values.DatabaseURLValue(f"sqlite:///{BASE_DIR}/db.sqlite3,")}
+    DATABASES = {
+        'default': dj_database_url.config(default=f"sqlite:///{BASE_DIR}/db.sqlite3,", conn_max_age=600),
+    }
+        
 
 	# Password validation
 	# https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
-	AUTH_PASSWORD_VALIDATORS = [
-	    {
-	        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-	    },
-	    {
-	        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-	    },
-	    {
-	        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-	    },
-	    {
-	        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-	    },
-	]
+    AUTH_PASSWORD_VALIDATORS = [
+        {
+            'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        },
+        {
+            'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        },
+        {
+            'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+        },
+        {
+            'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        },
+    ]
+
+        # Internationalization
+        # https://docs.djangoproject.com/en/3.2/topics/i18n/
+
+    LANGUAGE_CODE = 'en-us'
+
+    TIME_ZONE = values.Value("UTC")
+
+    USE_I18N = True
+
+    USE_L10N = True
+
+    USE_TZ = True
 
 
-	# Internationalization
-	# https://docs.djangoproject.com/en/3.2/topics/i18n/
+    # Static files (CSS, JavaScript, Images)
+    # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-	LANGUAGE_CODE = 'en-us'
+    STATIC_URL = '/static/'
 
-	TIME_ZONE = values.Value("UTC")
+    # Default primary key field type
+    # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
-	USE_I18N = True
+    DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-	USE_L10N = True
-
-	USE_TZ = True
-
-
-	# Static files (CSS, JavaScript, Images)
-	# https://docs.djangoproject.com/en/3.2/howto/static-files/
-
-	STATIC_URL = '/static/'
-
-	# Default primary key field type
-	# https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
-
-	DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-	CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
-	CRISPY_TEMPLATE_PACK = "bootstrap5"
+    CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+    CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 class Prod(Dev):
     DEBUG = False
     SECRET_KEY = values.SecretValue()
-    
