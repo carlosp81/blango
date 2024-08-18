@@ -9,7 +9,9 @@
 {% endrow %}
 {% row %}
     <div class="col">
-        {% recent_posts post %}
+        {% cache 3600 recent_posts %}
+            {% recent_posts post %}
+        {% endcache %}
     </div>
 {% row %}
 
